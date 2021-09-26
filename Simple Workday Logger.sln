@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Simple Workday Logger", "Simple Workday Logger\Simple Workday Logger.csproj", "{7759635E-2B06-43A7-84CD-09F39EDB3F68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Simple Workday Logger", "Simple Workday Logger\Simple Workday Logger.csproj", "{7759635E-2B06-43A7-84CD-09F39EDB3F68}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClassLibrary", "..\ClassLibrary\ClassLibrary\ClassLibrary.csproj", "{B3D53D5B-509A-47D7-BD35-598280446567}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{B859FEDF-A581-48CB-8B7B-17A87CFC2269}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{7759635E-2B06-43A7-84CD-09F39EDB3F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7759635E-2B06-43A7-84CD-09F39EDB3F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7759635E-2B06-43A7-84CD-09F39EDB3F68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3D53D5B-509A-47D7-BD35-598280446567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3D53D5B-509A-47D7-BD35-598280446567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3D53D5B-509A-47D7-BD35-598280446567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3D53D5B-509A-47D7-BD35-598280446567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B859FEDF-A581-48CB-8B7B-17A87CFC2269}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B859FEDF-A581-48CB-8B7B-17A87CFC2269}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B859FEDF-A581-48CB-8B7B-17A87CFC2269}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B859FEDF-A581-48CB-8B7B-17A87CFC2269}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
