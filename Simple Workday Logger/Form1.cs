@@ -16,18 +16,11 @@ namespace Simple_Workday_Logger
     {
         public Form1()
         {
-
-            InitializeComponent();            
-            WorkDays = WorkDayRepository.RetrieveAll();
+            InitializeComponent();                        
         }
-
-        public List<WorkDay> WorkDays { get; set; }
+        
         public WorkDayRepository WorkDayRepository { get; private set; } = new WorkDayRepository();
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
+  
         private void YesOrNoButton_Click(object sender, EventArgs e)
         {
             Button button = sender as Button;
@@ -38,7 +31,15 @@ namespace Simple_Workday_Logger
                 return; 
             }
 
-            WorkDayRepository.CreateWorkday();
+            try
+            {
+                WorkDayRepository.CreateWorkday();
+            }
+            catch(Exception ex)
+            {
+                messageBox.Text = "Existing workday with that date";
+                messageBox.Visible = true;
+            }
         }
     }
 }

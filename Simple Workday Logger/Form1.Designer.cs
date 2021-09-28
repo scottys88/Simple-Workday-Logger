@@ -32,6 +32,7 @@ namespace Simple_Workday_Logger
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.messageBox = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -63,11 +64,23 @@ namespace Simple_Workday_Logger
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.YesOrNoButton_Click);
             // 
+            // messageBox
+            // 
+            this.messageBox.AutoSize = true;
+            this.messageBox.ForeColor = System.Drawing.Color.Red;
+            this.messageBox.Location = new System.Drawing.Point(390, 776);
+            this.messageBox.Name = "messageBox";
+            this.messageBox.Size = new System.Drawing.Size(97, 41);
+            this.messageBox.TabIndex = 3;
+            this.messageBox.Text = "label2";
+            this.messageBox.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1697, 1085);
+            this.Controls.Add(this.messageBox);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
@@ -83,6 +96,7 @@ namespace Simple_Workday_Logger
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label messageBox;
     }
 }
 
