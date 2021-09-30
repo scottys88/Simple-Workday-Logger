@@ -46,5 +46,9 @@ namespace Common
         {
             return new DateTimeOffset(DateTime.UtcNow).Date;
         }
+
+        public static void MinimiseForm()
+        {
+        }
     }
 }
