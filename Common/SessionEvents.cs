@@ -23,10 +23,9 @@ namespace Common
             }
 
             Debug.WriteLine(sessionSwitchReason.ToString());
-            Debug.WriteLine(userSessionStarted);
+            Debug.WriteLine($"User session started: {userSessionStarted}");
 
             return userSessionStarted;
         }
-
     }
 }

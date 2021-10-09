@@ -47,8 +47,5 @@ namespace Common
             return new DateTimeOffset(DateTime.Now).Date;
         }
 
-        public static void MinimiseForm()
-        {
-        }
     }
 }
