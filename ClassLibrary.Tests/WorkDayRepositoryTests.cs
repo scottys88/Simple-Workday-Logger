@@ -75,5 +75,46 @@ namespace ClassLibrary.Tests
 
             Assert.IsNotNull(workDay);
         }
+
+        [TestMethod()]
+        public void GetIsExistingWorkDateTest_NoExistingWorkDays()
+        {
+            var workdayRepository = new WorkDayRepository();
+            var dateToCompare = new DateTimeOffset(DateTime.Now).Date;
+
+            var expected = false;
+
+            var actual = workdayRepository.GetIsExistingWorkDate(dateToCompare);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void GetIsExistingWorkDateTest_True()
+        {
+            var workdayRepository = new WorkDayRepository();
+            workdayRepository.CreateWorkday();
+            var dateToCompare = new DateTimeOffset(DateTime.Now).Date;
+
+            var expected = true;
+
+            var actual = workdayRepository.GetIsExistingWorkDate(dateToCompare);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        public void GetIsExistingWorkDateTest_False()
+        {
+            var workdayRepository = new WorkDayRepository();
+            workdayRepository.CreateWorkday();
+            var dateToCompare = new DateTimeOffset(DateTime.Now.AddDays(1)).Date;
+
+            var expected = false;
+
+            var actual = workdayRepository.GetIsExistingWorkDate(dateToCompare);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

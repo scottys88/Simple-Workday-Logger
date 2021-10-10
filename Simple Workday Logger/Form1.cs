@@ -1,4 +1,6 @@
 ﻿using ClassLibrary;
+using Common;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,11 +17,15 @@ namespace Simple_Workday_Logger
     public partial class Form1 : Form
     {
         public Form1()
-        {            
+        {
             InitializeComponent();
             SetWorkdayDataBinding();
+            SessionEvents = new SessionEvents();
+            SystemEvents.SessionSwitch += SessionSwitchEventHandler;
         }
-        
+
+        public SessionEvents SessionEvents { get; set; }
+
         public WorkDayRepository WorkDayRepository { get; private set; } = new WorkDayRepository();
         public BindingList<WorkDay> WorkDayBindingList { get; private set; }
         public new FormWindowState WindowState { get; set; }
@@ -27,15 +33,43 @@ namespace Simple_Workday_Logger
 
         private void SetWorkdayDataBinding()
         {
-            List<WorkDay> workdayList = WorkDayRepository.RetrieveAll();
-            WorkDayBindingList = new BindingList<WorkDay>(workdayList);
+            WorkDayBindingList = new BindingList<WorkDay>();
+            var existingWorkDays = WorkDayRepository.WorkDays;
+            if(existingWorkDays != null)
+            {
+                foreach(WorkDay workDay in existingWorkDays)
+                {
+                    WorkDayBindingList.Add(workDay);
+                }
+            }
             workdayBindingSource.DataSource = WorkDayBindingList;
             dataGridView1.DataSource = workdayBindingSource;
         }
 
-        public void MinimiseForm()
+        public void HideForm()
         {            
             this.Hide();
+        }
+
+        public void ShowForm()
+        {
+            this.Show();
+        }
+
+        public void SessionSwitchEventHandler(object sender, SessionSwitchEventArgs e)
+        {
+            Debug.WriteLine(e.Reason);
+            var userSessionStarted = SessionEvents.UserSessionStarted(e.Reason);
+            var now = Utility.GetDate();
+            var workDayDateAlreadyExists = WorkDayRepository.GetIsExistingWorkDate(now);
+
+            if (userSessionStarted && workDayDateAlreadyExists)
+            {
+                HideForm();
+            } else
+            {
+                ShowForm();
+            }
         }
 
         public void SetUserMessage(bool isVisible, string message)
@@ -48,22 +82,23 @@ namespace Simple_Workday_Logger
         {
             Button button = sender as Button;
             bool isWorkingFromHome = button.Text.ToLower() == "yes";
-            Debug.WriteLine(isWorkingFromHome);
 
-            if(!isWorkingFromHome) {
-                //MinimiseForm();
+
+            if (!isWorkingFromHome)
+            {
                 Debug.WriteLine("Hide the form");
-                return; 
+                this.HideForm();
+                return;
             }
 
             try
             {
-                WorkDayRepository.CreateWorkday();
+                WorkDayBindingList.Add(WorkDayRepository.CreateWorkday());                
                 SetUserMessage(true, "New workday created");
             }
             catch (ArgumentOutOfRangeException)
             {
-                SetUserMessage(true, "Existing workday with that date");                                
+                SetUserMessage(true, "Existing workday with that date");
             }
         }
     }

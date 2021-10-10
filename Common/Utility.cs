@@ -44,11 +44,8 @@ namespace Common
 
         public static DateTimeOffset GetDate()
         {
-            return new DateTimeOffset(DateTime.UtcNow).Date;
+            return new DateTimeOffset(DateTime.Now).Date;
         }
 
-        public static void MinimiseForm()
-        {
-        }
     }
 }
