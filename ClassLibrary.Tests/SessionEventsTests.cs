@@ -22,5 +22,21 @@ namespace Common.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod()]
+        public void UserSessionStartedTest_True()
+        {
+            var sessionEvents = new SessionEvents();
+            var sessionSwitchReasonUnlock = SessionSwitchReason.SessionUnlock;
+            var sessionSwitchReasonSessionLogon = SessionSwitchReason.SessionLogon;
+
+            var expected = true;
+
+            var actualResultUnlock = sessionEvents.UserSessionStarted(sessionSwitchReasonUnlock);
+            var actualResultLogon = sessionEvents.UserSessionStarted(sessionSwitchReasonSessionLogon);
+
+            Assert.AreEqual(expected, actualResultUnlock);
+            Assert.AreEqual(expected, actualResultLogon);
+        }
     }
 }

@@ -33,8 +33,15 @@ namespace Simple_Workday_Logger
 
         private void SetWorkdayDataBinding()
         {
-            List<WorkDay> workdayList = WorkDayRepository.RetrieveAll();
-            WorkDayBindingList = new BindingList<WorkDay>(workdayList);
+            WorkDayBindingList = new BindingList<WorkDay>();
+            var existingWorkDays = WorkDayRepository.WorkDays;
+            if(existingWorkDays != null)
+            {
+                foreach(WorkDay workDay in existingWorkDays)
+                {
+                    WorkDayBindingList.Add(workDay);
+                }
+            }
             workdayBindingSource.DataSource = WorkDayBindingList;
             dataGridView1.DataSource = workdayBindingSource;
         }
@@ -86,7 +93,7 @@ namespace Simple_Workday_Logger
 
             try
             {
-                WorkDayRepository.CreateWorkday();
+                WorkDayBindingList.Add(WorkDayRepository.CreateWorkday());                
                 SetUserMessage(true, "New workday created");
             }
             catch (ArgumentOutOfRangeException)
