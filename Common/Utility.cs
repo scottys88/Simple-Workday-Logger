@@ -46,6 +46,10 @@ namespace Common
         {
             return new DateTimeOffset(DateTime.Now).Date;
         }
+        public static DateTimeOffset GetDate(string dateString)
+        {
+            return new DateTimeOffset(DateTimeOffset.Parse(dateString).DateTime).Date;
+        }
 
     }
 }
