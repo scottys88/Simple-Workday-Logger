@@ -34,7 +34,7 @@ namespace Simple_Workday_Logger
         private void SetWorkdayDataBinding()
         {
             WorkDayBindingList = new BindingList<WorkDay>();
-            var existingWorkDays = WorkDayRepository.WorkDays;
+            var existingWorkDays = WorkDayRepository.RetrieveAll();
             if(existingWorkDays != null)
             {
                 foreach(WorkDay workDay in existingWorkDays)
