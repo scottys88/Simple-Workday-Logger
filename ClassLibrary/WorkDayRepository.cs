@@ -16,18 +16,24 @@ namespace ClassLibrary
         }
 
 
-        protected string FilePath { get; private set; } = @"C:\Users\scott\OneDrive\Documents\sites\SimpleWorkdayLogger\workdays.txt";
+        public string FilePath = @"C:\Users\scott\OneDrive\Documents\sites\SimpleWorkdayLogger\workdays.txt";
 
         public List<WorkDay> WorkDays { get; private set; }
 
         public DateTimeOffset MostRecentWorkDate { get; private set; }
-       
+
+        public string GetFilePath()
+        {
+            return FilePath;
+        }
+
+
         public WorkDay Retrieve(string id)
         {
-                  
+
             WorkDay workDay = WorkDays.Find(day => day.WorkDayId == id);
 
-            if(workDay == null)
+            if (workDay == null)
             {
                 throw new ArgumentOutOfRangeException("No workday with that id");
             }
@@ -39,31 +45,32 @@ namespace ClassLibrary
         private List<String> GetLinesFromFile()
         {
             List<String> lines = new List<String>();
+            var filePath = GetFilePath();
 
-            lines = File.ReadAllLines(FilePath).ToList();
+            lines = File.ReadAllLines(filePath).ToList();
 
             return lines;
         }
 
         public List<WorkDay> RetrieveAll()
-        {            
-            if(WorkDays.Count == 0 && WorkDays != null)
+        {
+            List<WorkDay> workDays = new List<WorkDay>();
+            List<String> lines = GetLinesFromFile();
+            var filePath = GetFilePath();
+
+            if (lines.Count > 0)
             {
-                
-                List<WorkDay> workDays = new List<WorkDay>();
-                List<String> lines = GetLinesFromFile();
-                
-                foreach(String line in lines)
-                {          
+                foreach (String line in lines)
+                {
                     String[] items = line.Split(',');
                     WorkDay workDay = new WorkDay(items[0], items[1]);
                     workDays.Add(workDay);
-                }                
+                }
+            }
+            WorkDays = workDays;
 
-                WorkDays = workDays;                
+            File.WriteAllLines(filePath, lines);
 
-                File.WriteAllLines(FilePath, lines);
-            }            
             return WorkDays;
         }
 
@@ -77,14 +84,15 @@ namespace ClassLibrary
             if (MostRecentWorkDate == null)
             {
                 return false;
-            }            
+            }
 
             bool isExistingWorkdate = DateTimeOffset.Equals(dateToCompare.Date, MostRecentWorkDate);
 
             if (isExistingWorkdate)
             {
                 return true;
-            } else
+            }
+            else
             {
                 return false;
             }
@@ -99,8 +107,10 @@ namespace ClassLibrary
         {
             var lines = GetLinesFromFile();
             var commaDelimitedWorkday = GetWorkDayAsCommaDelimited(workday);
+            var filePath = GetFilePath();
             lines.Add(commaDelimitedWorkday);
-            File.WriteAllLines(FilePath, lines);
+
+            File.WriteAllLines(filePath, lines);
         }
 
         public WorkDay CreateWorkday()
@@ -116,13 +126,13 @@ namespace ClassLibrary
 
             string id = Utility.GenerateID();
             WorkDay workday = new WorkDay(id);
-            MostRecentWorkDate = workday.Date;   
-            
+            MostRecentWorkDate = workday.Date;
+
             WorkDays.Add(workday);
             AddWorkDayToFile(workday);
-           
+
             Utility.CastToILoggable<WorkDay>((WorkDays) as List<WorkDay>);
-                       
+
             return workday;
         }
     }
