@@ -16,7 +16,7 @@ namespace ClassLibrary
         }
 
 
-        public string FilePath = @"C:\Users\scott\OneDrive\Documents\sites\SimpleWorkdayLogger\workdays.txt";
+        public string FilePath = "./workdays.txt";
 
         public List<WorkDay> WorkDays { get; private set; }
 
@@ -46,6 +46,15 @@ namespace ClassLibrary
         {
             List<String> lines = new List<String>();
             var filePath = GetFilePath();
+            var fileExists = File.Exists(filePath);
+
+            if(!fileExists)
+            {
+                using (StreamWriter sw = File.CreateText(filePath))
+                {
+
+                }
+            }
 
             lines = File.ReadAllLines(filePath).ToList();
 
