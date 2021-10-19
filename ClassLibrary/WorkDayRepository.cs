@@ -44,16 +44,13 @@ namespace ClassLibrary
 
         private List<String> GetLinesFromFile()
         {
-            List<String> lines = new List<String>();
+            List<String> lines;
             var filePath = GetFilePath();
             var fileExists = File.Exists(filePath);
 
             if(!fileExists)
             {
-                using (StreamWriter sw = File.CreateText(filePath))
-                {
-
-                }
+                using StreamWriter sw = File.CreateText(filePath);
             }
 
             lines = File.ReadAllLines(filePath).ToList();
@@ -87,7 +84,7 @@ namespace ClassLibrary
         {
             if (WorkDays.Count > 0)
             {
-                MostRecentWorkDate = WorkDays[WorkDays.Count - 1].Date;
+                MostRecentWorkDate = WorkDays[^1].Date;
             }
 
             if (MostRecentWorkDate == null)
