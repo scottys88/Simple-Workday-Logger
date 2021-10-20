@@ -20,6 +20,7 @@ namespace Simple_Workday_Logger
         {
             InitializeComponent();
             SetWorkdayDataBinding();
+            messageTimer.Tick += new EventHandler(MessageTimerEventProcessor);
             SessionEvents = new SessionEvents();
             SystemEvents.SessionSwitch += SessionSwitchEventHandler;
         }
@@ -30,14 +31,16 @@ namespace Simple_Workday_Logger
         public BindingList<WorkDay> WorkDayBindingList { get; private set; }
         public new FormWindowState WindowState { get; set; }
 
+        private int MessageTimer { get; set; }
+
 
         private void SetWorkdayDataBinding()
         {
             WorkDayBindingList = new BindingList<WorkDay>();
             var existingWorkDays = WorkDayRepository.RetrieveAll();
-            if(existingWorkDays != null)
+            if (existingWorkDays != null)
             {
-                foreach(WorkDay workDay in existingWorkDays)
+                foreach (WorkDay workDay in existingWorkDays)
                 {
                     WorkDayBindingList.Add(workDay);
                 }
@@ -47,7 +50,7 @@ namespace Simple_Workday_Logger
         }
 
         public void HideForm()
-        {            
+        {
             this.Hide();
         }
 
@@ -66,9 +69,25 @@ namespace Simple_Workday_Logger
             if (userSessionStarted && workDayDateAlreadyExists)
             {
                 HideForm();
-            } else
+            }
+            else
             {
                 ShowForm();
+            }
+        }
+
+        private void MessageTimerEventProcessor(Object myObject, EventArgs eventArgs)
+        {
+
+            messageTimer.Interval = 1000;
+
+            MessageTimer += messageTimer.Interval;
+
+            if (MessageTimer > 5000)
+            {
+                SetUserMessage(false, "");
+                messageTimer.Stop();
+                MessageTimer = 0;
             }
         }
 
@@ -76,6 +95,11 @@ namespace Simple_Workday_Logger
         {
             messageBox.Text = message;
             messageBox.Visible = isVisible;
+            if (isVisible)
+            {
+                messageTimer.Start();
+            }
+
         }
 
         private void YesOrNoButton_Click(object sender, EventArgs e)
@@ -93,7 +117,7 @@ namespace Simple_Workday_Logger
 
             try
             {
-                WorkDayBindingList.Add(WorkDayRepository.CreateWorkday());                
+                WorkDayBindingList.Add(WorkDayRepository.CreateWorkday());
                 SetUserMessage(true, "New workday created");
             }
             catch (ArgumentOutOfRangeException)

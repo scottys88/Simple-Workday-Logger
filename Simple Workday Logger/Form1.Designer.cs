@@ -40,6 +40,7 @@ namespace Simple_Workday_Logger
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.workdayBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.messageTimer = new System.Windows.Forms.Timer(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -177,6 +178,7 @@ namespace Simple_Workday_Logger
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource workdayBindingSource;
+        private System.Windows.Forms.Timer messageTimer;
     }
 }
 
