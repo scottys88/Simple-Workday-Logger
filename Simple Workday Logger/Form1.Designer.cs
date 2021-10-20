@@ -37,6 +37,7 @@ namespace Simple_Workday_Logger
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.workdayBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -52,9 +53,12 @@ namespace Simple_Workday_Logger
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 15.9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label1.Location = new System.Drawing.Point(226, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(405, 41);
+            this.label1.Size = new System.Drawing.Size(749, 72);
             this.label1.TabIndex = 0;
             this.label1.Text = "Are you working from home?";
             // 
@@ -81,10 +85,11 @@ namespace Simple_Workday_Logger
             // messageBox
             // 
             this.messageBox.AutoSize = true;
+            this.messageBox.Font = new System.Drawing.Font("Segoe UI Semibold", 9.900001F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.messageBox.ForeColor = System.Drawing.Color.Red;
             this.messageBox.Location = new System.Drawing.Point(226, 391);
             this.messageBox.Name = "messageBox";
-            this.messageBox.Size = new System.Drawing.Size(206, 41);
+            this.messageBox.Size = new System.Drawing.Size(238, 46);
             this.messageBox.TabIndex = 3;
             this.messageBox.Text = "exception text";
             this.messageBox.Visible = false;
@@ -93,44 +98,55 @@ namespace Simple_Workday_Logger
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(94, 39);
+            this.tabControl1.Location = new System.Drawing.Point(-2, -8);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1504, 949);
+            this.tabControl1.Size = new System.Drawing.Size(1711, 1098);
             this.tabControl1.TabIndex = 4;
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.tabPage1.Controls.Add(this.panel1);
+            this.tabPage1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.tabPage1.Location = new System.Drawing.Point(10, 58);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1484, 881);
+            this.tabPage1.Size = new System.Drawing.Size(1691, 1030);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Choose if Working from Home";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.messageBox);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(6, 125);
+            this.panel1.Location = new System.Drawing.Point(107, 121);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1483, 505);
             this.panel1.TabIndex = 5;
             // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label2.Location = new System.Drawing.Point(226, 352);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(1000, 10);
+            this.label2.TabIndex = 6;
+            // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.tabPage2.Controls.Add(this.dataGridView1);
             this.tabPage2.Location = new System.Drawing.Point(10, 58);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1484, 881);
+            this.tabPage2.Size = new System.Drawing.Size(1691, 1030);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Working from Home List";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
             // 
@@ -151,6 +167,7 @@ namespace Simple_Workday_Logger
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(17F, 41F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(1697, 1085);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
@@ -179,6 +196,7 @@ namespace Simple_Workday_Logger
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource workdayBindingSource;
         private System.Windows.Forms.Timer messageTimer;
+        private System.Windows.Forms.Label label2;
     }
 }
 
