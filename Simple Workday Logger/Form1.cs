@@ -55,7 +55,7 @@ namespace Simple_Workday_Logger
         }
 
         public void ShowForm()
-        {
+        {            
             this.Show();
         }
 
@@ -124,6 +124,16 @@ namespace Simple_Workday_Logger
             {
                 SetUserMessage(true, "Existing workday with that date");
             }
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            HideForm();
         }
     }
 }
