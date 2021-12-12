@@ -15,17 +15,30 @@ namespace ClassLibrary.Tests
     public class WorkDayRepositoryTests
     {
         private string GetTestFilePath()
-        {
-            var directory = "../../../";
-            var fileName = "test.txt";
-            var filePath = $"{directory}/{fileName}";
-
-            return filePath;
+        {            
+            var fileName = "./test.txt";
+            return fileName;
         }
+
+        [TestCleanup]
+        public void TearDown()
+        {
+            var filePath = GetTestFilePath();
+            var fileExists = File.Exists(filePath);
+
+            if (fileExists)
+            {
+                File.Delete(filePath);
+            }
+        }
+
         [TestMethod()]
         public void Retrieve_Pass_Test()
         {
-            var workDayRepository = new WorkDayRepository();
+            var workDayRepository = new WorkDayRepository()
+            {
+                FilePath = GetTestFilePath()
+            };
             var workDay1 = workDayRepository.CreateWorkday();
             var expected = workDay1.WorkDayId;
 
@@ -51,8 +64,10 @@ namespace ClassLibrary.Tests
             using (StreamWriter sw = File.CreateText(filePath))
             {
             };
-            var workdayRepository = new WorkDayRepository();
-            workdayRepository.FilePath = filePath;
+            var workdayRepository = new WorkDayRepository()
+            {
+                FilePath = filePath
+            };
             var expected = 0;
 
             var actual = workdayRepository.RetrieveAll().Count;
@@ -71,8 +86,10 @@ namespace ClassLibrary.Tests
             };
 
             File.WriteAllLines(filePath, lines);
-            var workdayRepository = new WorkDayRepository();
-            workdayRepository.FilePath = filePath;
+            var workdayRepository = new WorkDayRepository()
+            {
+                FilePath = filePath
+            };
             var expected = 2;
 
             var actual = workdayRepository.RetrieveAll().Count;
@@ -84,7 +101,10 @@ namespace ClassLibrary.Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void CreateWorkday_Fail_Test()
         {
-            var workdayRepository = new WorkDayRepository();
+            var workdayRepository = new WorkDayRepository()
+            {
+                FilePath = GetTestFilePath()
+            };
             workdayRepository.CreateWorkday();
             workdayRepository.CreateWorkday();
         }
@@ -92,7 +112,10 @@ namespace ClassLibrary.Tests
         [TestMethod()]
         public void CreateWorkDay_Success_Test()
         {
-            var workdayRepository = new WorkDayRepository();
+            var workdayRepository = new WorkDayRepository()
+            {
+                FilePath = GetTestFilePath()
+            };
             var workDay = workdayRepository.CreateWorkday();
 
 
@@ -115,12 +138,15 @@ namespace ClassLibrary.Tests
         [TestMethod()]
         public void GetIsExistingWorkDateTest_True()
         {
-            var workdayRepository = new WorkDayRepository();
-            var filePath = GetTestFilePath();
-            using (StreamWriter sw = File.CreateText(filePath))
+            var workdayRepository = new WorkDayRepository()
+            {
+                FilePath = GetTestFilePath()
+            };
+            
+            using (StreamWriter sw = File.CreateText(workdayRepository.FilePath))
             {
             };
-            workdayRepository.FilePath = filePath;
+            
             workdayRepository.CreateWorkday();
             var dateToCompare = new DateTimeOffset(DateTime.Now).Date;
 
@@ -134,7 +160,10 @@ namespace ClassLibrary.Tests
         [TestMethod()]
         public void GetIsExistingWorkDateTest_False()
         {
-            var workdayRepository = new WorkDayRepository();
+            var workdayRepository = new WorkDayRepository()
+            {
+                FilePath = GetTestFilePath()
+            };
             workdayRepository.CreateWorkday();
             var dateToCompare = new DateTimeOffset(DateTime.Now.AddDays(1)).Date;
 
@@ -148,7 +177,10 @@ namespace ClassLibrary.Tests
         [TestMethod()]
         public void GetWorkDayAsCommaDelimitedTest()
         {
-            var workdayRepository = new WorkDayRepository();
+            var workdayRepository = new WorkDayRepository()
+            {
+                FilePath = GetTestFilePath()
+            };
             var id = Utility.GenerateID();
             var date = Utility.GetDate();
             var workday = new WorkDay(id);

@@ -18,8 +18,10 @@ namespace Common.Tests
         {
             var id = Utility.GenerateID();
             var workDay = new WorkDay(id);
-            var list = new List<WorkDay>();
-            list.Add(workDay);
+            var list = new List<WorkDay>()
+            {
+                workDay
+            };
             var expected = 1;
 
             var actual = Utility.CastToILoggable(list);
